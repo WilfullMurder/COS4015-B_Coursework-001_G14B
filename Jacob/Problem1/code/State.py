@@ -26,29 +26,30 @@ class State:
         if boatCount > 2:
             return False
 
-        if (self.cat == self.dog) or (self.cat == self.hamster) and self.cat != self.student:
-            ##cat cannot be left alone with hamster or dog
+        if (self.cat == self.dog or self.cat == self.hamster) and self.cat != self.student:
+            """cat cannot be left alone with hamster or dog"""
             return False
 
         if (self.hamster == 1 or self.cat == 1 or self.dog == 1) and self.student != 1:
-            ##student must be present in boat
+            """student must be present in boat"""
             return False
 
-        ##default to True
+        """default to True"""
         return True
 
     def isValidNextStep(self, nextState=None):
-        ##obj can only traverse a singular unit
+        """obj can only traverse a singular unit"""
         if abs(self.student - nextState.student) > 1 or \
                 abs(self.hamster - nextState.hamster) > 1 or \
                 abs(self.cat - nextState.cat) > 1 or \
                 abs(self.dog - nextState.dog) > 1:
             return False
 
-        ##only the student may move obj
+        """only the student may move obj"""
         if self.cat != nextState.cat and (self.student != self.cat or nextState.student != nextState.cat):
             return False
-        if self.hamster != nextState.hamster and (self.student != self.hamster or nextState.student != nextState.hamster):
+        if self.hamster != nextState.hamster and (
+                self.student != self.hamster or nextState.student != nextState.hamster):
             return False
         if self.dog != nextState.dog and (self.student != self.dog or nextState.student != nextState.dog):
             return False
@@ -58,16 +59,15 @@ class State:
     def beingMoved(self, nextState=None):
         if self.cat != nextState.cat:
             return "Cat"
-        if self.chicken != nextState.chicken:
+        if self.hamster != nextState.chicken:
             return "Hamster"
         if self.dog != nextState.dog:
             return "Dog"
 
         return ""
 
-
-
     def toString(self):
+        """just straight ripped from java because it's a handy function for debug"""
         return str(self.student) + str(self.hamster) + str(self.cat) + str(self.dog)
 
     def printVisual(self):
