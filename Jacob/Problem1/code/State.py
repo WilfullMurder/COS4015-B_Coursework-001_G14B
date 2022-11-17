@@ -54,7 +54,17 @@ class State:
             return False
 
         return True
-    
+
+    def beingMoved(self, nextState=None):
+        if self.cat != nextState.cat:
+            return "Cat"
+        if self.chicken != nextState.chicken:
+            return "Hamster"
+        if self.dog != nextState.dog:
+            return "Dog"
+
+        return ""
+
 
 
     def toString(self):
