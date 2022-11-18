@@ -1,9 +1,9 @@
 from State import State
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_iris, load_boston, make_classification
 from sklearn import tree
-
-
 
 
 class AI:
@@ -14,6 +14,7 @@ class AI:
     numObjects = 4
     permutations = int(pow(numStates, numObjects))
 
+
     def AI(self):
         self.init()
 
@@ -22,16 +23,39 @@ class AI:
         self.endState = State.State(2, 2, 2, 2)
 
     def run(self):
-        graph = None
+        X, t = make_classification(100, 5, n_classes=2, shuffle=True, random_state=10)
+        X_Train, X_Test, t_train, t_test = train_test_split(X, t, test_size=0.3, shuffle=True, random_state=1)
+        model = tree.DecisionTreeClassifier()
+        model = model.fit(X_Train, t_train)
 
-    def generateDecisionTree(self):
-        pass
+        predictedVal = model.predict(X_Test)
+        print(predictedVal)
 
-    def getSolution(self, graph=None):
-        pass
+        tree.plot_tree(model)
+        zeroes = 0
+        ones = 0
+        for i in range(0, len(t_train)):
+            if t_train[i] == 0:
+                zeroes +=1
+            else:
+                ones += 2
 
-    def displayGraph(self, graph=None):
-        pass
+        print(zeroes)
+        print(ones)
 
-    def addLeadingZeros(self, number=""):
-        pass
+        val = 1 - (zeroes/70)*(zeroes*70) + (ones/70)*(ones/70)
+        print("Gini: ", val)
+
+        match = 0
+        Unmatch = 0
+
+        for i in range(30):
+            if predictedVal[i] == t_test[i]:
+                match +=1
+            else:
+                Unmatch += 1
+
+        accuracy = match / 30
+        print("Accuracy: ", accuracy)
+
+
