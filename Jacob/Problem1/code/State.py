@@ -1,3 +1,24 @@
+"""
+LOCATION SYNTAX:
+
+                |                |
+                |                |
+                |                |
+                |                |
+       ORIGIN   |    OBSTACLE    |    DESTINATION
+                |                |
+                |                |
+                |                |
+                |                |
+        0               1               2
+
+STATE SYNTAX: [STUDENT, HAMSTER, DOG, CAT]
+"""
+
+
+
+
+
 class State:
     student = 0
     hamster = 0
@@ -61,6 +82,7 @@ class State:
             return "Cat"
         if self.hamster != nextState.chicken:
             return "Hamster"
+
         if self.dog != nextState.dog:
             return "Dog"
 
@@ -71,4 +93,28 @@ class State:
         return str(self.student) + str(self.hamster) + str(self.cat) + str(self.dog)
 
     def printVisual(self):
-        pass
+        blank = "|               |"
+        line = "|    {}    |"
+        print("-"* 51)
+        print(blank * 3)
+
+        self.printLine(self,line, "Student", self.student)
+        self.printLine(self,line, "Hamster", self.hamster)
+        self.printLine(self,line, "Cat    ", self.cat)
+        self.printLine(self,line, "Dog    ", self.dog)
+
+        print(blank * 3)
+        print("-"* 51)
+
+    def printLine(self, line = "", value = "", location=0):
+        blank = "|               |"
+
+        match location:
+            case 0:
+                print(line.format(value) + blank + blank)
+            case 1:
+                print(blank + line.format(value) + blank)
+            case 2:
+                print(blank + blank + line.format(value))
+            case 4:
+                print(blank,blank,blank,blank)

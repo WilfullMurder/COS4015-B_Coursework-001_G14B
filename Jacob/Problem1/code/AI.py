@@ -3,20 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from sklearn import tree
 
-"""    
-                |                |
-                |                |
-                |                |
-                |                |
-    LEFT SIDE   |    RIVER       |    RIGHT SIDE
-                |                |
-                |                |
-                |                |
-                |                |
-        0               1               2
-     
 
- STUDENT, HAMSTER, DOG, CAT"""
 
 
 class AI:
