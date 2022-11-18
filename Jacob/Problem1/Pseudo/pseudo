@@ -73,5 +73,16 @@ only 2 objects can be at 1 (on the river) i.e. [1,0,1,0], [1,0,1,2] are valid st
 only the student can move objects therefore e.g. [0,1,1,0] is an invalid state
 
 
-so we can graph each state to a node with a 4 digit value and add negative weight to the edges of invalid states and
-then use bellman-ford to determine the shortest path.
+so we can graph each state to a node with a 4 digit value.
+
+Planning on implementing a simple search tree using sci-kit learn, matplotlib and numpy
+AI will use a data factory to generate all combinations of state 
+AI will feed data into the state class in order to check each move for validity
+AI will track moves (by checking neighbouring vailidity) until an invalid node is hit.
+if node is invalid:
+  AI will backtrack to last node with known valid neighbour
+else:
+  AI has found the route 
+  
+AI will print the valid route and some metadata
+Hopefully I can add in viskit (or whatever) to have the graph visualised
