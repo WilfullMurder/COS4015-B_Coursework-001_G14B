@@ -1,16 +1,30 @@
 
 import random
 
+import BST
 from AI import AI
 from DataFactory import DataFactory
+from Graph import Graph
 from State import State
 
 
 def main():
-    testDataFactory()
+    testBST()
 
 
 
+def testBST():
+    bst = BST.BinarySearchTree
+    bst.__init__(bst, "0000")
+    print(bst.root)
+    print(bst.tree)
+    print(bst.heap)
+
+
+def testGraph():
+    g = Graph
+    g.__init__(g)
+    g.generateNodes(g)
 
 
 def testState():
@@ -38,7 +52,12 @@ def testDataFactory():
     df = DataFactory
     df.__init__(df)
     print("Length: ", len(df.data))
-    for i in df.data:
-        print(i)
+    print(df.getData(df))
+
+
+def testAI():
+    ai = AI
+    ai.AI(ai)
+    ai.run(ai)
 
 main()
