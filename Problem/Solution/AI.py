@@ -1,61 +1,82 @@
-from State import State
+import pandas as pd
+from sklearn.preprocessing import OneHotEncoder
+
+import BST
+import State
+from CONSTANTS import *
+from DataFactory import DataFactory
+from Graph import Graph
+from State import State as St
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_iris, load_boston, make_classification
-from sklearn import tree
+from sklearn.datasets import make_classification
+from sklearn import tree, svm
 
 
 class AI:
-    startState = []
-    endState = []
-
-    numStates = 3
-    numObjects = 4
-    permutations = int(pow(numStates, numObjects))
-
+    startState = None
+    endState = None
+    poss_States = []
+    bst = None
+    permutations = 0
+    df = None
 
     def AI(self):
-        self.init()
+        self.init(self)
 
     def init(self):
-        self.startState = State.State(0, 0, 0, 0)
-        self.endState = State.State(2, 2, 2, 2)
+        self.startState = St
+        self.endState = St
+        self.startState.State(self.startState, 0, 0, 0, 0)
+        self.endState.State(self.endState, 2, 2, 2, 2)
+        self.permutations = int(pow(NUM_STATES, NUM_OBJECTS))
+        self.df = DataFactory
+        self.df.__init__(self.df)
 
     def run(self):
-        X, t = make_classification(100, 5, n_classes=2, shuffle=True, random_state=10)
-        X_Train, X_Test, t_train, t_test = train_test_split(X, t, test_size=0.3, shuffle=True, random_state=1)
-        model = tree.DecisionTreeClassifier()
-        model = model.fit(X_Train, t_train)
 
-        predictedVal = model.predict(X_Test)
-        print(predictedVal)
+        currentState = St
+        validStates = 0
+        ##TODO: consider using binSearch or decision tree
+        for i in range(self.permutations):
 
-        tree.plot_tree(model)
-        zeroes = 0
-        ones = 0
-        for i in range(0, len(t_train)):
-            if t_train[i] == 0:
-                zeroes +=1
-            else:
-                ones += 2
-
-        print(zeroes)
-        print(ones)
-
-        val = 1 - (zeroes/70)*(zeroes*70) + (ones/70)*(ones/70)
-        print("Gini: ", val)
-
-        match = 0
-        Unmatch = 0
-
-        for i in range(30):
-            if predictedVal[i] == t_test[i]:
-                match +=1
-            else:
-                Unmatch += 1
-
-        accuracy = match / 30
-        print("Accuracy: ", accuracy)
+            # state = new State(addLeadingZeros(Integer.toString(i, NUM_STATES))); NUM_STATES is the radix for the function.
+            # this is how we would deal with it in java. so how do we toString(i, NUM_STATES) in python?
+            # made a couple of recursive func in dataFactory that deal with this
+            currentState.newState(currentState, self.df.addLeadingZeroes(self.df, self.df.strFromBase(self.df, i, NUM_STATES)))
+            if currentState.isValid(currentState):
+                validStates += 1
+                nextStep = St
+                for j in range(self.permutations):
+                    nextStep.newState(currentState, self.df.addLeadingZeroes(self.df, self.df.strFromBase(self.df, j, NUM_STATES)))
 
 
+                    if nextStep.isValid(nextStep) and currentState.isValidNextStep(currentState, nextStep):
+                        currentState.beingMoved(currentState, nextStep)
+                        if currentState.state not in self.poss_States:
+                            self.poss_States.append(currentState.state)
+        ##TODO: sort out finding the right path from poss_States
+
+        print("Number of possibilities: ", self.permutations)
+        print("Number of valid states: ", validStates)
+
+        print(self.poss_States)
+
+    def runGenTree(self):
+        graph = self.generateDecisionTree(self)
+
+
+
+    def generateDecisionTree(self):
+        graph = Graph
+
+        currentState = State
+        validStates = 0
+
+        for i in range(self.permutations):
+            currentState = State.newState(currentState, self.addLeadingZeroes(str(i) + str(NUM_STATES)))
+            print("CS: ", currentState)
+
+            if currentState.IsValid(currentState):
+                node = graph.generateSingleNode(graph, str(currentState))

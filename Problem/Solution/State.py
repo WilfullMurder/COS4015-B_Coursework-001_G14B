@@ -22,21 +22,30 @@ class State:
     hamster = 0
     cat = 0
     dog = 0
+    state = ""
 
     def State(self, student=0, hamster=0, cat=0, dog=0):
+        s = ""
         self.student = student
+        s+str(student)
         self.hamster = hamster
+        s+str(hamster)
         self.cat = cat
+        s+str(cat)
         self.dog = dog
+        s+str(dog)
+        self.state = s
+
 
     def newState(self, state=""):
         self.student = int(state[0])
         self.hamster = int(state[1])
         self.cat = int(state[2])
         self.dog = int(state[3])
+        self.state = state
 
     def isValid(self):
-        # Only 2 obj on boat simultaneously
+        """Only 2 obj on boat simultaneously"""
         boatCount = 0
         boatCount = (((self.student == 1) if 1 else 0) +
                      ((self.hamster == 1) if 1 else 0) +
@@ -78,7 +87,7 @@ class State:
     def beingMoved(self, nextState=None):
         if self.cat != nextState.cat:
             return "Cat"
-        if self.hamster != nextState.chicken:
+        if self.hamster != nextState.hamster:
             return "Hamster"
 
         if self.dog != nextState.dog:
