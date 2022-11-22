@@ -33,35 +33,42 @@ class AI:
         self.bst = BST.BinarySearchTree
 
     def run(self):
-        self.bst.__init__(self.bst, self.startState.toString(self.startState))
-        currentState = []
-        vaildStates = 0
+
         currentState = St
+        vaildStates = 0
+
         for i in range(self.permutations):
-            for k in range(NUM_OBJECTS):
 
-                currentState.State(currentState, k % NUM_STATES, k % NUM_STATES, k % NUM_STATES, k % NUM_STATES)
-                if currentState not in self.poss_States:
-                    self.poss_States.append(currentState.state.copy())
-                for j in range(NUM_STATES):
-                    currentState.State(currentState, j, k % NUM_STATES, j, k % NUM_STATES)
-                    if currentState not in self.poss_States:
-                        self.poss_States.append(currentState.state.copy())
-
-                    print(currentState.toString(currentState))
-
+            #state = new State(addLeadingZeros(Integer.toString(i, NUM_STATES)));
+            #this is how we would deal with it in java. so how do we toString(i, NUM_STATES) in python?
+            #NUM_STATES is the radix for the function.
+            # how do we implement a radix or similar
+            currentState.newState(currentState,self.addLeadingZeroes(self, str(i % NUM_STATES)))
             if currentState.isValid(currentState):
                 vaildStates += 1
+                nextStep = St
+                for j in range(self.permutations):
+                    nextStep.newState(nextStep, self.addLeadingZeroes(self, str(j % NUM_STATES)))
 
-                node = BST.Node(currentState.toString(currentState))
+                    if nextStep.isValid(nextStep) and currentState.isValidNextStep(currentState, nextStep):
+                        currentState.beingMoved(currentState, nextStep)
+                        if currentState.state not in self.poss_States:
+                            self.poss_States.append(currentState.state.copy())
+
+
+        print("Number of possibilities: ", self.permutations)
+        print("Number of valid states: ", vaildStates)
+
+        print(self.poss_States)
 
     def runGenTree(self):
         graph = self.generateDecisionTree(self)
 
     def addLeadingZeroes(self, num=""):
-        while num.__len__() < 4:
-            num = "0" + num
-        return num
+        if num.isnumeric():
+            while num.__len__() < 4:
+                num = "0" + num
+            return num
 
     def generateDecisionTree(self):
         graph = Graph
