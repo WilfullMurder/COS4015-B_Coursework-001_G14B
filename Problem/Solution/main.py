@@ -1,4 +1,3 @@
-
 import random
 
 import BST
@@ -9,7 +8,7 @@ from State import State
 
 
 def main():
-    testAI()
+    testDataFactory()
 
 
 def testBST():
@@ -42,6 +41,7 @@ def testState():
     print(s.isValid(s))
     s.printVisual(s)
 
+
 def testDataFactory():
     numStates = 3
     numObjects = 4
@@ -52,15 +52,23 @@ def testDataFactory():
     df.__init__(df)
     print("Length: ", len(df.data))
     print(df.getData(df))
+
     l = []
     for i in range(len(df.getData(df))):
-        l.append(df.addLeadingZeroes(df, df.strFromBase(df, i, 3)))
-        print("Data base-3 format: ", l[i], " = ", i)
+        l.append(df.addLeadingZeroes(df.strFromBase(df, i, 3)))
+        print("Data[", i, "], base-3 format: ", l[i])
+
+    l = []
+    for i in range(1000):
+        l.append(df.addLeadingZeroes(df.strFromBase(df, i, 16)))
+        print("Data[", i, "], HEX format: ", l[i])
+
 
 
 def testAI():
     ai = AI
     ai.AI(ai)
     ai.run(ai)
+
 
 main()

@@ -1,5 +1,7 @@
 import itertools
-from CONSTANTS import LOCATION_SYNTAX as LS
+import string
+
+from CONSTANTS import NUM_OBJECTS, LOCATION_SYNTAX as LS
 
 
 class DataFactory:
@@ -18,31 +20,47 @@ class DataFactory:
         self.data.sort()
         self.permutations = len(self.data)
 
+    def convertData(self, i=None):
+        tmp = [i[0], i[1], i[2], i[3]]
+        self.data.append(tmp.copy())
+
     def getData(self):
         return self.data
 
     def getLastIndex(self):
         return len(self.data) - 1
 
-    def convertData(self, i=None):
-        tmp= [i[0], i[1], i[2], i[3]]
-        self.data.append(tmp.copy())
+    def getLastElem(self):
+        return self.data[len(self.data) - 1]
 
-    def digitToChar(self,digit):
-        if digit < 10:
-            return str(digit)
-        return chr(ord('a') + digit - 10)
+
 
     def strFromBase(self, num=0, base=0):
-        if num<0:
+        """converts and formats any number to any base <= 169
+           :returns converted numString
+        """
+        if num < 0:
             return '-' + self.strFromBase(self, -num, base)
-        (d,m) = divmod(num, base)
+        (d, m) = divmod(num, base)
         if d > 0:
-            return self.strFromBase(self, d, base) + self.digitToChar(self, m)
-        return self.digitToChar(self, m)
+            return self.strFromBase(self, d, base) + self.digitToChar(m)
+        return self.digitToChar(m)
 
-    def addLeadingZeroes(self, num=""):
-        if num.isnumeric():
-            while num.__len__() < 4:
-                num = "0" + num
+    @staticmethod
+    def digitToChar(digit):
+        """:returns digit from (0123456789abcdefghijklmnopqrstuvwxyz)"""
+        return (string.digits + string.ascii_lowercase)[digit]
+
+    @staticmethod
+    def addLeadingZeroes(num=""):
+        """Formats numStrings in groups of four for readability
+            :returns formatted numString
+        """
+        if len(num) % 4 == 0:
             return num
+        while num.__len__() % NUM_OBJECTS > 0:
+            num = "0" + num
+        return num
+
+
+
