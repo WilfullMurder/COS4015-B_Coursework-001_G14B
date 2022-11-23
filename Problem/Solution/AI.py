@@ -41,9 +41,6 @@ class AI:
         ##TODO: consider using binSearch or decision tree
         for i in range(self.permutations):
 
-            # state = new State(addLeadingZeros(Integer.toString(i, NUM_STATES))); NUM_STATES is the radix for the function.
-            # this is how we would deal with it in java. so how do we toString(i, NUM_STATES) in python?
-            # made a couple of recursive func in dataFactory that deal with this
             currentState.newState(currentState, self.df.addLeadingZeroes(self.df, self.df.strFromBase(self.df, i, NUM_STATES)))
             if currentState.isValid(currentState):
                 validStates += 1
