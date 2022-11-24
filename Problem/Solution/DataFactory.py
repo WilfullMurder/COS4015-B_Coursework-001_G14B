@@ -48,8 +48,12 @@ class DataFactory:
 
     @staticmethod
     def digitToChar(digit):
-        """:returns digit from (0123456789abcdefghijklmnopqrstuvwxyz)"""
-        return (string.digits + string.ascii_lowercase)[digit]
+        """Converts digit to character from ascii
+        :returns chr
+        """
+        if digit < 10:
+            return str(digit)
+        return chr(ord('a') + digit - 10)
 
     @staticmethod
     def addLeadingZeroes(num=""):
