@@ -53,15 +53,11 @@ def testDataFactory():
     print("Length: ", len(df.data))
     print(df.getData(df))
 
-    l = []
+    l=[]
     for i in range(len(df.getData(df))):
         l.append(df.addLeadingZeroes(df.strFromBase(df, i, 3)))
-        print("Data[", i, "], base-3 format: ", l[i])
+        print("Data[", i, "], base-3: ", l[i])
 
-    l = []
-    for i in range(1000):
-        l.append(df.addLeadingZeroes(df.strFromBase(df, i, 16)))
-        print("Data[", i, "], HEX format: ", l[i])
 
 
 

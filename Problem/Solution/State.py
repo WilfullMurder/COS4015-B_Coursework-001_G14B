@@ -14,9 +14,6 @@ STATE SYNTAX: [STUDENT, HAMSTER, DOG, CAT]
 """
 
 
-
-
-
 class State:
     student = 0
     hamster = 0
@@ -27,15 +24,14 @@ class State:
     def State(self, student=0, hamster=0, cat=0, dog=0):
         s = ""
         self.student = student
-        s+str(student)
+        s + str(student)
         self.hamster = hamster
-        s+str(hamster)
+        s + str(hamster)
         self.cat = cat
-        s+str(cat)
+        s + str(cat)
         self.dog = dog
-        s+str(dog)
+        s + str(dog)
         self.state = s
-
 
     def newState(self, state=""):
         self.student = int(state[0])
@@ -102,18 +98,19 @@ class State:
     def printVisual(self):
         blank = "|               |"
         line = "|    {}    |"
-        print("-"* 51)
+        print("-" * 51)
         print(blank * 3)
 
-        self.printLine(self,line, "Student", self.student)
-        self.printLine(self,line, "Hamster", self.hamster)
-        self.printLine(self,line, "Cat    ", self.cat)
-        self.printLine(self,line, "Dog    ", self.dog)
+        self.printLine(line, "Student", self.student)
+        self.printLine(line, "Hamster", self.hamster)
+        self.printLine(line, "Cat    ", self.cat)
+        self.printLine(line, "Dog    ", self.dog)
 
         print(blank * 3)
-        print("-"* 51)
+        print("-" * 51)
 
-    def printLine(self, line = "", value = "", location=0):
+    @staticmethod
+    def printLine(line="", value="", location=0):
         blank = "|               |"
 
         match location:
@@ -124,4 +121,4 @@ class State:
             case 2:
                 print(blank + blank + line.format(value))
             case 4:
-                print(blank,blank,blank,blank)
+                print(blank, blank, blank, blank)

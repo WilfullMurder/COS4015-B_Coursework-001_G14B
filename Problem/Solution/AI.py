@@ -1,17 +1,7 @@
-import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
-
-import BST
-import State
 from CONSTANTS import *
 from DataFactory import DataFactory
-from Graph import Graph
 from State import State as St
-import matplotlib.pyplot as plt
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import make_classification
-from sklearn import tree, svm
+
 
 
 class AI:
@@ -60,20 +50,3 @@ class AI:
 
         print(self.poss_States)
 
-    def runGenTree(self):
-        graph = self.generateDecisionTree(self)
-
-
-
-    def generateDecisionTree(self):
-        graph = Graph
-
-        currentState = State
-        validStates = 0
-
-        for i in range(self.permutations):
-            currentState = State.newState(currentState, self.addLeadingZeroes(str(i) + str(NUM_STATES)))
-            print("CS: ", currentState)
-
-            if currentState.IsValid(currentState):
-                node = graph.generateSingleNode(graph, str(currentState))
