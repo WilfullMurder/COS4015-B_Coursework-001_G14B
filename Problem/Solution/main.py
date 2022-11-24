@@ -1,66 +1,88 @@
-
-import random
-
-import BST
-from AI import AI
-from DataFactory import DataFactory
-from Graph import Graph
-from State import State
-
-
 def main():
-    testAI()
+    start = ["hamster", "cat", "dog"]
+    destination = []
+
+    print("You are stranded on the side of the river with your three pets. "
+          "\nHow are you going to get them across the river in a boat?"
+          "\nThe boat can only hold yourself and one of the animals."
+          "\nBe aware, the cat will attack the hamster in your absence and the dog would attack the cat.")
+
+    choice = ""
+
+    while choice != "cat":
+        choice = input("Please select an animal to move: ")
+        match choice:
+            case "hamster":
+                print("DISASTER!")
+            case "dog":
+                print("DISASTER!")
+            case "cat":
+                print("Correct choice")
+                destination.append(start.pop(1))
+                print("Start: ", start)
+                print("Destination: ", destination)
+            case default:
+                print(choice, "was not an option!")
+
+    bloop = True
+    choice = ""
+    while bloop:
+        choice = input("Please select an animal to move: ")
+
+        match choice:
+            case "hamster":
+                print("Correct choice")
+                destination.append(start.pop(0))
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                start.append(destination.pop(0))
+                print("Cat would eat hamster! Take cat back")
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                destination.append(start.pop(0))
+                print("Dog would eat cat! Take Dog")
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                destination.append(start.pop(0))
+                print("Just the cat left...")
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                bloop = False
+                return
 
 
-def testBST():
-    bst = BST.BinarySearchTree
-    bst.__init__(bst, "0000")
-    print(bst.root)
-    print(bst.tree)
-    print(bst.heap)
+            case "dog":
+                print("Correct choice")
+                destination.append(start.pop(1))
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                start.append(destination.pop(0))
+                print("Dog would eat cat! Take cat")
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                destination.append(start.pop(0))
+                print("cat would eat hamster! Take hamster")
+                print("Start: ", start)
+                print("Destination: ", destination)
+
+                destination.append(start.pop(0))
+                print("Just the cat left...")
+                print("Start: ", start)
+                print("Destination: ", destination)
+                bloop = False
+                return
+
+            case "cat":
+                print(choice ,"is at destination")
+            case default:
+                print(choice, "was not an option!")
 
 
-def testGraph():
-    g = Graph
-    g.__init__(g)
-    g.generateNodes(g)
-
-
-def testState():
-    s = State
-    s.State(s, 0, 0, 0, 0)
-    print(s.toString(s))
-    print(s.isValid(s))
-    s.newState(s, "0111")
-    print(s.toString(s))
-    print(s.isValid(s))
-    s.newState(s, "0101")
-    print(s.toString(s))
-    print(s.isValid(s))
-    s.newState(s, "1012")
-    print(s.toString(s))
-    print(s.isValid(s))
-    s.printVisual(s)
-
-def testDataFactory():
-    numStates = 3
-    numObjects = 4
-    permutations = int(pow(numStates, numObjects))
-    print("Number of permutations: ", permutations)
-
-    df = DataFactory
-    df.__init__(df)
-    print("Length: ", len(df.data))
-    print(df.getData(df))
-    l = []
-    for i in range(len(df.getData(df))):
-        l.append(df.addLeadingZeroes(df, df.strFromBase(df, i, 3)))
-        print("Data base-3 format: ", l[i], " = ", i)
-
-
-def testAI():
-    ai = AI
-    ai.AI(ai)
-    ai.run(ai)
 
 main()
